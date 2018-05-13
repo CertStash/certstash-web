@@ -1,13 +1,18 @@
 import React, { Component } from 'react'
-import { withStyles } from 'material-ui/styles'
 import { connect } from 'react-redux'
-import Button from 'material-ui/Button'
-import Typography from 'material-ui/Typography'
-import { Paper } from 'material-ui'
-import axios from 'axios'
+
 import AddUser from './addUser'
 import UserTable from './userTable'
+import CSVModal from './CSVModal'
+import RejectedUsers from './rejectedUsers'
 import { issueCerts } from '../../../actions/certActions'
+
+import { withStyles } from 'material-ui/styles'
+import Button from 'material-ui/Button'
+import Typography from 'material-ui/Typography'
+import { CircularProgress } from 'material-ui/Progress';
+import { Paper } from 'material-ui'
+
 
 const styles = {
   container: {
@@ -42,7 +47,8 @@ const styles = {
 
 class IssueCert extends Component {
   state = {
-    addingUser: false
+    addingUser: false,
+    modalOpen: false
   }
   
   toggleAddUser = () => {
@@ -56,9 +62,13 @@ class IssueCert extends Component {
     const { users, template, issueCerts } = this.props;
     issueCerts(users, template)
   }
+  toggleCSVModal = () => {
+    this.setState(prev => ({modalOpen: !prev.modalOpen}))
+  }
   render(){
     const { classes, loadedUsers, users, template } = this.props
-    const { addingUser } = this.state
+    const { addingUser, modalOpen } = this.state
+
     return (
       <div className={classes.container}>
         <Paper elevation={4} className={classes.paper}>
@@ -70,7 +80,7 @@ class IssueCert extends Component {
               <Button variant="raised" className={classes.loadButton} color={"primary"} onClick={this.toggleAddUser} >
                 { this.state.addingUser ? `▲ Search` : `▼ Search` }
               </Button>
-              <Button variant="raised" className={classes.loadButton} color={"primary"} onClick={this.addUser} disabled={false}>
+              <Button variant="raised" className={classes.loadButton} color={"primary"} onClick={this.toggleCSVModal} >
                 Import CSV
               </Button>  
             </div>
@@ -87,20 +97,42 @@ class IssueCert extends Component {
             : null }
           <UserTable title={'Confirmed Users'} />
           <Button variant="raised" className={classes.issueButton} color={"primary"} onClick={this.issueCertsClick} disabled={users.length === 0 || template._id === undefined }>
-            Issue Certs
+            {this.props.issuing
+              ? <CircularProgress className={classes.progress} size={30} color="inherit"/>
+              : 'Issue Certs'
+            }
           </Button>
+          { this.props.rejectedUsers.length > 0
+            ? <div>
+                <Typography variant="headline" component="h2" align="left">
+                  Users Not Found:
+                </Typography>
+                <RejectedUsers />
+                <Button variant="raised" className={ classes.issueButton } color={ "secondary" } onClick={this.inviteUsers}>
+                  {this.props.issuing
+                    ? <CircularProgress className={ classes.progress } size={ 30 } color="inherit"/>
+                    : 'Issue Certs Anyway and Invite Users'
+                  }
+                </Button>
+              </div>
+            : null
+          }
         </Paper>
+        <CSVModal open={ modalOpen } closeCb={ this.toggleCSVModal }/>
+        {/* TODO: Create Success Modal */}
       </div>
     )
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = ({cert}) => {
   return {
-    template: state.cert.template, 
-    users: state.cert.users,
-    fetchingUsers: state.cert.fetchingUsers,
-    loadedUsers: state.cert.loadedUsers
+    template: cert.template, 
+    users: cert.users,
+    rejectedUsers: cert.rejectedUsers,
+    fetchingUsers: cert.fetchingUsers,
+    loadedUsers: cert.loadedUsers,
+    issuing: cert.issuing
   }
 }
 const component = connect(

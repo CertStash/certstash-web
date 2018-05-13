@@ -3,7 +3,7 @@ import { withStyles } from 'material-ui/styles'
 import Typography from 'material-ui/Typography'
 import { TableCell, TableRow } from 'material-ui/Table';
 import Icon from 'material-ui/Icon';
-import Button from 'material-ui/Button'
+import Tooltip from 'material-ui/Tooltip';
 import { connect } from 'react-redux'
 import { removeUser } from '../../../actions/certActions'
 const styles = {
@@ -49,7 +49,9 @@ const User = (props) => {
         </Typography>
       </TableCell>
       <TableCell>
-        <Icon onClick={ () => { removeUser(user) }} className={classes.removeIcon}>remove_circle</Icon>
+        <Tooltip title="Remove User" >
+          <Icon onClick={ () => { removeUser(user) }} className={classes.removeIcon}>remove_circle</Icon>
+        </Tooltip>
       </TableCell>
     </TableRow>
   )

@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
+import { CircularProgress } from 'material-ui/Progress';
 import { withStyles } from 'material-ui/styles'
 import { connect } from 'react-redux'
-import { getUser } from '../../../actions/certActions'
+import { getUsers } from '../../../actions/certActions'
 
 const styles = {
   userContainer: {
@@ -36,7 +37,7 @@ class AddUser extends Component {
     }
   }
   searchClick = () => {
-    this.props.getUser(this.state);
+    this.props.getUsers([this.state.email]);
     this.setState({email: '', phone: ''})
   }
 
@@ -82,12 +83,16 @@ class AddUser extends Component {
             </Button>       
         }
         
-        <Button variant="raised" className={classes.loadButton} color={"primary"} onClick={ () => { this.searchClick()}} disabled={this.state.email.length === 0 || this.state.phone === 0}>
-          Search for User
+        <Button variant="raised" className={classes.loadButton} color={"primary"} onClick={ this.searchClick } disabled={ this.state.email.length === 0 || this.state.phone === 0 }>
+          {this.props.fetching
+            ? <CircularProgress className={classes.progress} size={30} color="inherit"/>
+            : 'Search for User'
+          }
         </Button>
       </div>
     )
   }
 }
-const component = connect(null, { getUser })(AddUser)
+const mapStateToProps = state => ({ fetching: state.cert.fetchingUsers })
+const component = connect(mapStateToProps, { getUsers })(AddUser)
 export default withStyles(styles)(component)

@@ -1,8 +1,7 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { withStyles } from 'material-ui/styles'
 import { connect } from 'react-redux'
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
-import Typography from 'material-ui/Typography'
 import User from './user'
 
 const styles = {
@@ -12,7 +11,6 @@ const styles = {
 }
 
 const CustomTableCell = withStyles(theme => {
-  console.log(theme)
   return {
     head: {
       backgroundColor: theme.palette.background.default,
@@ -25,7 +23,7 @@ const CustomTableCell = withStyles(theme => {
 })(TableCell);
 
 const UserTable = props => {
-    const { classes, users, title } = props
+    const { classes, users } = props
     return (
       <Table className={classes.table}>
         <TableHead>
