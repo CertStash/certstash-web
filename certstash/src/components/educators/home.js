@@ -4,7 +4,8 @@ import { connect } from 'react-redux'
 import Button from 'material-ui/Button'
 import Typography from 'material-ui/Typography'
 import { Paper } from 'material-ui'
-import { getTemplates } from '../../actions/certActions'
+import { getCourses } from '../../actions/certActions'
+import routeStrings from '../../helpers/routeStrings'
 
 const styles = {
   container: {
@@ -26,17 +27,17 @@ const styles = {
 }
 
 class EducatorHome extends Component {
-  createTemplateClick = () => {
+  createCourseClick = () => {
     const { history, match } = this.props
-    history.push(`${match.url}/createTemplate`)
+    history.push(routeStrings.createCourse)
   }
 
-  getTemplateClick = () => {
-    this.props.getTemplates( () => { this.props.history.push(`/educator/manageTemplates`) })
+  getCourseClick = () => {
+    this.props.getCourses( () => { this.props.history.push(routeStrings.manageCourses) })
   }
   
   issueCertClick = () => {
-    this.props.getTemplates(() => { this.props.history.push(`/educator/selectTemplate`) })
+    this.props.getCourses(() => { this.props.history.push(routeStrings.selectCourse) })
   }
 
   render(){
@@ -47,22 +48,22 @@ class EducatorHome extends Component {
           <Typography variant="headline" component="h2" align="center">
             Welcome to CertStash!
           </Typography>
-          {this.props.org.templates.length === 0 
+          {this.props.org.courses.length === 0 
             ? <Typography component="p" align="center">
-                It looks like you haven't created any templates yet, let's get started!
+                It looks like you haven't created any courses yet, let's get started!
               </Typography>
             : null
           }
-          <Button variant="raised" className={classes.loadButton} color={"primary"} onClick={this.createTemplateClick}>
-            Create New Template
+          <Button variant="raised" className={classes.loadButton} color={"primary"} onClick={this.createCourseClick}>
+            Create New Course
           </Button>
-          <Button variant="raised" className={classes.loadButton} color={"primary"} onClick={this.getTemplateClick}>
-            Manage Templates
+          <Button variant="raised" className={classes.loadButton} color={"primary"} onClick={this.getCourseClick}>
+            Manage Courses
           </Button>
           <Button variant="raised" className={classes.loadButton} color={"primary"} onClick={this.issueCertClick}>
             Issue New Certification(s)
           </Button>
-          <Button variant="raised" className={classes.loadButton} color={"primary"} onClick={this.createTemplateClick}>
+          <Button variant="raised" className={classes.loadButton} color={"primary"} onClick={this.createCourseClick}>
             Manage Certification(s)
           </Button>
         </Paper>
@@ -70,9 +71,9 @@ class EducatorHome extends Component {
     )
   }
 }
-const mapStateToProps = state => ({org: state.org, template: state.cert.template})
+const mapStateToProps = state => ({org: state.org, course: state.cert.course})
 const component = connect(
   mapStateToProps,
-  { getTemplates }
+  { getCourses }
 )(EducatorHome)
 export default withStyles(styles)(component)

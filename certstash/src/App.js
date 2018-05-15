@@ -7,16 +7,18 @@ import LoginChoice from './components/loginSignup/loginChoice'
 import StudentBase from './components/students/studentBase'
 import { Route } from 'react-router-dom'
 
+import routeStrings from './helpers/routeStrings'
+
 
 
 function App(props){
   return (
     <div>
       <Header history={props.history}/>
-      <Route exact path='/' component={Welcome} />
-      <Route path='/loginchoice' component={LoginChoice} />
-      <Route path='/educator' component={Educators} />
-      <Route path='/student' component={StudentBase} />
+      <Route exact path={routeStrings.home} component={Welcome} />
+      <Route path={routeStrings.loginChoice} component={LoginChoice} />
+      <Route path={routeStrings.educator} component={Educators} />
+      <Route path={routeStrings.student} component={StudentBase} />
     </div>
   )
 }

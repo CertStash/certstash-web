@@ -4,6 +4,7 @@ import Card, { CardActions, CardContent } from 'material-ui/Card';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
+import routeStrings from '../../helpers/routeStrings'
 
 const styles = {
   root: {
@@ -37,16 +38,16 @@ function Welcome(props){
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small" color="primary" onClick={() => history.push('/student/learnmore')}>
+          <Button size="small" color="primary" onClick={() => history.push(routeStrings.studentLearnMore)}>
             Learn More
           </Button>
-          <Button size="small" color="primary" onClick={() => history.push('/student/signup')}>
+          <Button size="small" color="primary" onClick={() => history.push(routeStrings.studentSignup)}>
             Sign Up
           </Button>
-          <Button size="small" color="primary" onClick={() => history.push('/student/login')}>
+          <Button size="small" color="primary" onClick={() => history.push(routeStrings.studentLogin)}>
             Log In
           </Button>
-          <Button size="small" color="primary" onClick={() => history.push('/educator/learnmore')}>
+          <Button size="small" color="primary" onClick={() => history.push(routeStrings.educatorLearnmore)}>
             Educators
           </Button>
         </CardActions>

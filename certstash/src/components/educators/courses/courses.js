@@ -4,7 +4,8 @@ import { connect } from 'react-redux'
 import Button from 'material-ui/Button'
 import Typography from 'material-ui/Typography'
 import { Paper } from 'material-ui'
-import Template from './template'
+import Course from './course'
+import routeStrings from '../../../helpers/routeStrings'
 
 const styles = {
   container: {
@@ -27,12 +28,12 @@ const styles = {
   }
 }
 
-class Templates extends Component {
-  createTemplateClick = () => {
+class Courses extends Component {
+  createCourseClick = () => {
     const { history, match } = this.props
-    history.push(`${match.url}/createTemplate`)
+    history.push(routeStrings.createCourse)
   }
-  templateClickHandler = () => {
+  coursesClickHandler = () => {
     const { history, locString } = this.props
     history.push(locString)
   }
@@ -42,21 +43,21 @@ class Templates extends Component {
       <div className={classes.container}>
         <Paper elevation={4} className={classes.paper}>
           <Typography variant="headline" component="h2" align="center">
-            Select a Template:
+            Select a Course:
           </Typography>
-          {this.props.templates.length === 0 
+          {this.props.courses.length === 0 
             ? <div>
                 <Typography component="p" align="center">
-                  It looks like you haven't created any templates yet, let's get started!
+                  It looks like you haven't created any courses yet, let's get started!
                 </Typography>
-                <Button variant="raised" className={classes.loadButton} color={"primary"} onClick={this.createTemplateClick}>
-                  Create Template
+                <Button variant="raised" className={classes.loadButton} color={"primary"} onClick={this.createCourseClick}>
+                  Create Course
                 </Button>
               </div>
             : null
           }
-          {this.props.templates.map( (item, index) => {
-            return <Template key={index} template={ item } navCallback={ this.templateClickHandler } />
+          {this.props.courses.map( (item, index) => {
+            return <Course key={index} course={ item } navCallback={ this.coursesClickHandler } />
           })}
         </Paper>
       </div>
@@ -64,9 +65,9 @@ class Templates extends Component {
   }
 }
 
-const mapStateToProps = state => ({templates: state.org.templates})
+const mapStateToProps = state => ({courses: state.org.courses})
 const component = connect(
   mapStateToProps,
   { }
-)(Templates)
+)(Courses)
 export default withStyles(styles)(component)

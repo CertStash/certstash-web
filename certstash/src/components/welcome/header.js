@@ -4,6 +4,7 @@ import { withStyles } from 'material-ui/styles';
 // import MenuIcon from 'material-ui-icons/Menu'
 import { connect } from 'react-redux'
 import { logout } from '../../actions/org'
+import routeStrings from '../../helpers/routeStrings'
 
 const styles = {
   root: {
@@ -23,10 +24,10 @@ function Header(props) {
   const { classes, history, logout} = props;
   const onSignOut = () => {
     logout();
-    history.push('/')
+    history.push(routeStrings.home)
   }
   const logInClick = () => {
-    history.push('/loginchoice');
+    history.push(routeStrings.loginChoice);
   }
   const loggedIn = localStorage.getItem('token')
   
@@ -34,7 +35,7 @@ function Header(props) {
     <div className={classes.root}>
       <AppBar>
         <Toolbar>
-          <Typography type="title" color="inherit" className={classes.flex} variant="headline" component='h2' onClick={() => {history.push('/')}}>
+          <Typography type="title" color="inherit" className={classes.flex} variant="headline" component='h2' onClick={() => {history.push(routeStrings.home)}}>
             CertStash
           </Typography>
           {loggedIn

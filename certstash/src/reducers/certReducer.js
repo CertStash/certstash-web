@@ -1,8 +1,8 @@
 import _ from 'lodash'
-import { LOAD_TEMPLATE, LOAD_USERS, RESET, FETCHING_USERS, REMOVE_USER, REMOVE_REJECTED, ISSUING_CERTS } from '../actions/certActions'
+import { LOAD_COURSE, LOAD_USERS, RESET, FETCHING_USERS, REMOVE_USER, REMOVE_REJECTED, ISSUING_CERTS } from '../actions/certActions'
 
 const defaultState = {
-  template: {},
+  course: {},
   users: [],
   rejectedUsers: [],
   fetchingUsers: false,
@@ -12,8 +12,8 @@ const defaultState = {
 
 export default ( state = defaultState, action ) => {
   switch(action.type){
-    case LOAD_TEMPLATE: 
-      return Object.assign({}, state, { template: action.template })
+    case LOAD_COURSE: 
+      return Object.assign({}, state, { course: action.course })
     case LOAD_USERS:
       const rejectedUsers = action.requestedUsers.reduce( (arr, email) => {
         let filteredUsers = action.users.filter( userObj => {

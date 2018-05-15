@@ -5,6 +5,7 @@ import { withStyles } from 'material-ui/styles';
 import TextField from 'material-ui/TextField'
 import Button from 'material-ui/Button'
 import {logIn} from '../../../actions/org.js'
+import routeStrings from '../../../helpers/routeStrings'
 
 const styles = {
   root: {
@@ -41,7 +42,7 @@ class LogIn extends Component {
 
   onSubmitSuccess = () => {
     const { history } = this.props
-    history.push('/educator/home')
+    history.push(routeStrings.educatorHome)
   }
 
   onSubmit = () => {

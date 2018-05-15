@@ -24,9 +24,6 @@ import { connect } from 'react-redux'
 
 // Styles object
 const styles = {
-  dialog: {
-    width: '100%'
-  },
   chooseButton: {
     marginTop: 10
   },
@@ -99,11 +96,9 @@ class CSVModal extends Component {
         onClose={this.clearFileAndClose}
         className={classes.dialog}
       >
-        <DialogTitle id="alert-dialog-slide-title">
-            {"Upload a CSV"}
-        </DialogTitle>
+        <DialogTitle>Upload a CSV</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-slide-description">
+          <DialogContentText>
             Please select a CSV file to upload. Note there must be an 'email' column in order to find the students.
           </DialogContentText>
           <input type="file" onChange={this.fileSelect} ref={this.inputRef} style={{display: 'none'}}/>

@@ -8,17 +8,9 @@ import { Paper } from 'material-ui'
 import TextField from 'material-ui/TextField';
 import MenuItem from 'material-ui/Menu/MenuItem';
 
-import { createTemplate } from '../../../actions/certActions'
+import { createCourse } from '../../../actions/certActions'
 
 const styles = {
-  root: {
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: '15px 0 15px 0',
-    minHeight: '200px'
-  },
   container: {
     display: 'flex',
     justifyContent: 'center',
@@ -31,6 +23,10 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'center'
 
+  },
+  appBar: {
+    paddingLeft: 10, 
+    margin: 10
   },
   textInput: {
     width: '90%',
@@ -106,7 +102,7 @@ const durations = [
   },
 ]
 
-class EducatorHome extends Component {
+class CourseWizard extends Component {
   constructor(props){
     super(props)
     this.state = {
@@ -122,30 +118,31 @@ class EducatorHome extends Component {
     }
   }
 
-  createTemplateClick = () => {
-    const { history, createTemplate } = this.props
+  createCourseClick = () => {
+    const { history, createCourse } = this.props
     const { name, description, validDuration } = this.state
     let duration = durations.filter( item => item.value === validDuration)[0]
-    const template = {
+    const course = {
       name,
       description,
       validDuration: duration
     }
-    createTemplate(template, history)
+    createCourse(course, history)
   }
+
   render(){
     const { classes } = this.props
     return (
       <div className={classes.container}>
         <Paper elevation={4} className={classes.paper}>
           <AppBar position="static">
-            <Typography style={{paddingLeft: 10}}variant="headline" component="h2" color="inherit">
-              Template Wizard
+            <Typography className={classes.appBar} variant="title" color="inherit">
+              Course Creation Wizard
             </Typography>
           </AppBar>
           <TextField
             id="name"
-            label="Template Name"
+            label="Course Name"
             className={classes.textInput}
             value={this.state.name}
             onChange={this.handleChange('name')}
@@ -154,6 +151,7 @@ class EducatorHome extends Component {
           <TextField
             id="description"
             label="Description"
+            multiline
             className={classes.textInput}
             value={this.state.description}
             onChange={this.handleChange('description')}
@@ -179,8 +177,8 @@ class EducatorHome extends Component {
               </MenuItem>
             ))}
           </TextField>
-          <Button variant="raised" className={classes.loadButton} color={"primary"} onClick={this.createTemplateClick}>
-            Create Template
+          <Button variant="raised" className={classes.loadButton} color={"primary"} onClick={this.createCourseClick}>
+            Create Course
           </Button>
         </Paper>
       </div>
@@ -190,6 +188,6 @@ class EducatorHome extends Component {
 const mapStateToProps = state => ({org: state.org})
 const component = connect(
   mapStateToProps,
-  { createTemplate }
-)(EducatorHome)
+  { createCourse }
+)(CourseWizard)
 export default withStyles(styles)(component)

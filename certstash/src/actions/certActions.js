@@ -1,9 +1,10 @@
 import axios from 'axios'
+import routeStrings from '../helpers/routeStrings'
 const URL = 'http://localhost:8000/org'
 
 // Redux action types:
-export const GET_TEMPLATES = 'GET_TEMPLATES'
-export const LOAD_TEMPLATE = 'LOAD_TEMPLATE'
+export const GET_COURSES = 'GET_COURSES'
+export const LOAD_COURSE = 'LOAD_COURSE'
 export const LOAD_USERS = 'LOAD_USERS'
 export const RESET = 'RESET'
 export const FETCHING_USERS = 'FETCHING_USERS'
@@ -15,29 +16,29 @@ export const ISSUING_CERTS = 'ISSUING_CERTS'
 const headers = {headers: {Authorization: localStorage.getItem('token')}}
 
 // Actions:
-export const createTemplate = (template, history) => {
+export const createCourse = (course, history) => {
   return dispatch => {
-    axios.post(`${URL}/createTemplate`, template, {headers: {Authorization: localStorage.getItem('token')}})
+    axios.post(`${URL}/createCourse`, course, {headers: {Authorization: localStorage.getItem('token')}})
       .then( response => {
-        history.push('/educator/home')
+        history.push(routeStrings.educatorHome)
       })
       .catch( err => console.log(err))
   }
 }
 
-export const getTemplates = (navigationCallback) => {
+export const getCourses = (navigationCallback) => {
   return dispatch => {
-    axios.get('http://localhost:8000/org/getTemplates', headers)
+    axios.get('http://localhost:8000/org/getCourses', headers)
       .then( response => {
-        dispatch({type: GET_TEMPLATES, templates: response.data}) 
+        dispatch({type: GET_COURSES, courses: response.data}) 
         navigationCallback()
       })
       .catch( err => console.log(err))
   }
 }
 
-export const loadTemplate = ( template ) => {
-  return { type: LOAD_TEMPLATE, template }
+export const loadCourse = ( course ) => {
+  return { type: LOAD_COURSE, course }
 }
 
 export const loadUsers = ( users, requestedUsers ) => {
@@ -71,9 +72,9 @@ export const removeRejected = (email) => {
   }
 }
 
-export const issueCerts = (users, template) => {
+export const issueCerts = (users, course) => {
   return dispatch => {
-    const certsObject = { users, template }
+    const certsObject = { users, course }
     dispatch({type: ISSUING_CERTS})
     axios.post(`${URL}/issueCerts`, certsObject, headers)
       .then( response => {

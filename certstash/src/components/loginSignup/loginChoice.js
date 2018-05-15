@@ -3,6 +3,7 @@ import Card, { CardActions, CardContent } from 'material-ui/Card';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
+import routeStrings from '../../helpers/routeStrings'
 
 
 const styles = {
@@ -37,10 +38,10 @@ function LoginChoice(props){
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small" color="primary" onClick={() => history.push('/student/login')}>
+          <Button size="small" color="primary" onClick={() => history.push(routeStrings.studentLogin)}>
             Student
           </Button>
-          <Button size="small" color="primary" onClick={() => history.push('/educator/login')}>
+          <Button size="small" color="primary" onClick={() => history.push(routeStrings.educatorLogin)}>
             Educator
           </Button>
         </CardActions>

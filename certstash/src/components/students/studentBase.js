@@ -6,6 +6,7 @@ import ImageUpload from '../loginSignup/ImageUpload'
 import Login from './loginSignup/login'
 import { withStyles } from 'material-ui/styles';
 import { Route } from 'react-router-dom'
+import routeStrings from '../../helpers/routeStrings'
 
 const styles = {
   root: {

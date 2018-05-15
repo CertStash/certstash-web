@@ -3,7 +3,7 @@ import { withStyles } from 'material-ui/styles'
 import Typography from 'material-ui/Typography'
 import { Paper } from 'material-ui'
 import { connect } from 'react-redux'
-import { loadTemplate } from '../../../actions/certActions'
+import { loadCourse } from '../../../actions/certActions'
 const styles = {
   container: {
     display: 'flex',
@@ -21,27 +21,27 @@ const styles = {
   }
 }
 
-const Template = (props) => {
-  const { classes, template, navCallback } = props
+const Course = (props) => {
+  const { classes, course, navCallback } = props
   const clickHandler = () => {
-    props.loadTemplate(template)
+    props.loadCourse(course)
     navCallback()
   }
   return (
     <div className={ classes.container } onClick={ clickHandler }>
       <Paper elevation={4} className={ classes.paper }>
         <Typography variant="headline" component="h2" align="left">
-          { template.name }
+          { course.name }
         </Typography>
         <Typography component="p" align="left">
-          Description: { template.description }
+          Description: { course.description }
         </Typography>
         <Typography component="p" align="left">
-          Valid for: { template.validDuration.label }
+          Valid for: { course.validDuration.label }
         </Typography>
       </Paper>
     </div>
   )
 }
-const component = connect(null, { loadTemplate })(Template)
+const component = connect(null, { loadCourse })(Course)
 export default withStyles(styles)(component)
