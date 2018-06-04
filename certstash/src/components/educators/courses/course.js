@@ -22,9 +22,9 @@ const styles = {
 }
 
 const Course = (props) => {
-  const { classes, course, navCallback } = props
+  const { classes, course, navCallback,loadCourse } = props
   const clickHandler = () => {
-    props.loadCourse(course)
+    loadCourse(course)
     navCallback()
   }
   return (

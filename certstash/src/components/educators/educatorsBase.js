@@ -8,8 +8,9 @@ import Home from './home'
 import Courses from './courses/courses'
 import CourseWizard from './courses/CourseWizard'
 import IssueCert from './certs/issueCert'
+import ManageCerts from './certs/ManageCerts/ManageCerts'
 
-import routeStrings from '../../helpers/routeStrings'
+import routes from '../../helpers/routes'
 import { withStyles } from 'material-ui/styles';
 import { Route } from 'react-router-dom'
 const styles = {
@@ -25,15 +26,15 @@ function Educators(props){
   const { classes, match } = props;
   return  (
     <div className={classes.root}>
-      <Route path={routeStrings.educatorLearnMore} component={EducatorLearnMore}/>
-      <Route path={routeStrings.educatorLogin} render={ props => {
+      <Route path={routes.educatorLearnMore} component={EducatorLearnMore}/>
+      <Route path={routes.educatorLogin} render={ props => {
         return (
           <LoginSignup {...props}>
             <Login {...props} />
           </LoginSignup>
         )
       }} />
-      <Route path={routeStrings.educatorSignup} render={ props => {
+      <Route path={routes.educatorSignup} render={ props => {
         return (
           <LoginSignup {...props}>
             <Signup {...props}/>
@@ -41,24 +42,30 @@ function Educators(props){
         )
       }} />
       <Route 
-        path={routeStrings.educatorLogo} 
+        path={routes.educatorLogo} 
         render={ props => {
           return <ImageUpload 
                   type={'org'} 
-                  navigateNext={routeStrings.educatorHome} 
+                  navigateNext={routes.educatorHome} 
                   {...props}
                 /> 
         }}
       />
-      <Route exact path={routeStrings.educatorHome} component={Home} />
-      <Route exact path={routeStrings.createCourse} component={CourseWizard} />
-      <Route exact path={routeStrings.manageCourses} render={ () => {
-        return <Courses locString={routeStrings.updateCourse} {...props}/> 
+      <Route exact path={routes.educatorHome} component={Home} />
+      <Route exact path={routes.manageCourses} render={ () => {
+        return <Courses locString={routes.updateCourse} {...props}/> 
       }}/>
-      <Route exact path={routeStrings.selectCourse} render={ () => {
-        return <Courses locString={routeStrings.issueCert} {...props}/> 
+      <Route exact path={routes.selectCourse} render={ () => {
+        return <Courses locString={routes.issueCert} {...props}/> 
       }}/>
-      <Route exact path={routeStrings.issueCert} component={IssueCert} />
+      <Route exact path={routes.createCourse} render={() => {
+        return <CourseWizard title={'Create Course'} {...props}/>
+      }}/>
+      <Route exact path={routes.updateCourse} render={() => {
+        return <CourseWizard title={'Update Course'} {...props}/>
+      }}/>
+      <Route exact path={routes.issueCert} component={IssueCert} />
+      <Route exact path={routes.manageCerts} component={ManageCerts} />
     </div>
   );
 }

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { signup } from '../../../actions/org'
 import { validateEmail, validatePhone } from '../../../helpers/validationHelper'
-import routeStrings from '../../../helpers/routeStrings'
+import routes from '../../../helpers/routes'
 
 import { withStyles } from 'material-ui/styles';
 import TextField from 'material-ui/TextField'
@@ -52,7 +52,7 @@ class SignUp extends Component {
 
   onSubmitComplete = () => {
     const { history } = this.props
-    history.push(routeStrings.educatorLogo)
+    history.push(routes.educatorLogo)
   }
   
   

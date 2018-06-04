@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { LOAD_COURSE, LOAD_USERS, RESET, FETCHING_USERS, REMOVE_USER, REMOVE_REJECTED, ISSUING_CERTS } from '../actions/certActions'
+import { LOAD_COURSE, LOAD_USERS, RESET, FETCHING_USERS, REMOVE_USER, REMOVE_REJECTED, ISSUING_CERTS, CLEAR_COURSE } from '../actions/certActions'
 
 const defaultState = {
   course: {},
@@ -41,6 +41,8 @@ export default ( state = defaultState, action ) => {
       return Object.assign({}, state, {rejectedUsers: filteredRejected})
     case ISSUING_CERTS: 
       return Object.assign({}, state, {issuing: true})
+    case CLEAR_COURSE:
+      return Object.assign({}, state, {course: {}})
     case RESET:
       return defaultState
     default:

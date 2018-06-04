@@ -7,7 +7,7 @@ import LoginChoice from './components/loginSignup/loginChoice'
 import StudentBase from './components/students/studentBase'
 import { Route } from 'react-router-dom'
 
-import routeStrings from './helpers/routeStrings'
+import routes from './helpers/routes'
 
 
 
@@ -15,10 +15,10 @@ function App(props){
   return (
     <div>
       <Header history={props.history}/>
-      <Route exact path={routeStrings.home} component={Welcome} />
-      <Route path={routeStrings.loginChoice} component={LoginChoice} />
-      <Route path={routeStrings.educator} component={Educators} />
-      <Route path={routeStrings.student} component={StudentBase} />
+      <Route exact path={routes.home} component={Welcome} />
+      <Route path={routes.loginChoice} component={LoginChoice} />
+      <Route path={routes.educator} component={Educators} />
+      <Route path={routes.student} component={StudentBase} />
     </div>
   )
 }

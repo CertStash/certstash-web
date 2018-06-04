@@ -8,10 +8,11 @@ import { Paper } from 'material-ui'
 import TextField from 'material-ui/TextField';
 import MenuItem from 'material-ui/Menu/MenuItem';
 
-import { createCourse } from '../../../actions/certActions'
+import { createCourse, updateCourse, deleteCourse } from '../../../actions/certActions'
+import routes from '../../../helpers/routes'
 
 const styles = {
-  container: {
+  root: {
     display: 'flex',
     justifyContent: 'center',
     position: 'absolute',
@@ -112,14 +113,21 @@ class CourseWizard extends Component {
     }
   }
 
+  static getDerivedStateFromProps(props){
+    const { course } = props
+    if(course && !!course.name){
+      return {name: course.name, description: course.description, validDuration: course.validDuration.value}
+    } 
+    return {}
+  } 
+
   handleChange = (name) => {
     return (e) => {
       this.setState({[name]: e.target.value})
     }
   }
-
-  createCourseClick = () => {
-    const { history, createCourse } = this.props
+  s
+  createCourseObject = () => {
     const { name, description, validDuration } = this.state
     let duration = durations.filter( item => item.value === validDuration)[0]
     const course = {
@@ -127,17 +135,35 @@ class CourseWizard extends Component {
       description,
       validDuration: duration
     }
+    return course
+  }
+
+  createCourseClick = () => {
+    const { history, createCourse } = this.props
+    const course = this.createCourseObject();
     createCourse(course, history)
   }
 
+  updateCourseClick = () => {
+    const { updateCourse, course, history } = this.props
+    const updatedCourse = this.createCourseObject()
+    updateCourse(updatedCourse, course._id, () => {history.push(routes.educatorHome)})
+  }
+
+  deleteCourseClick = () => {
+    // Create Delete confirmation modal
+    const { deleteCourse, course, history } = this.props
+    deleteCourse(course, () => {history.push(routes.educatorHome)})
+  }
+
   render(){
-    const { classes } = this.props
+    const { classes, title, course } = this.props
     return (
-      <div className={classes.container}>
+      <div className={classes.root}>
         <Paper elevation={4} className={classes.paper}>
           <AppBar position="static">
             <Typography className={classes.appBar} variant="title" color="inherit">
-              Course Creation Wizard
+              {title}
             </Typography>
           </AppBar>
           <TextField
@@ -177,17 +203,27 @@ class CourseWizard extends Component {
               </MenuItem>
             ))}
           </TextField>
-          <Button variant="raised" className={classes.loadButton} color={"primary"} onClick={this.createCourseClick}>
-            Create Course
-          </Button>
+          { course.name 
+            ? <div> 
+                <Button variant="raised" className={classes.loadButton} color={"primary"} onClick={this.updateCourseClick}>
+                  Update Course
+                </Button>
+                <Button variant="raised" className={classes.loadButton} color={"primary"} onClick={this.deleteCourseClick}>
+                  Delete Course
+                </Button>
+              </div>
+            :<Button variant="raised" className={classes.loadButton} color={"primary"} onClick={this.createCourseClick}>
+              Create Course
+            </Button>
+          }
         </Paper>
       </div>
     )
   }
 }
-const mapStateToProps = state => ({org: state.org})
+const mapStateToProps = state => ({course: state.cert.course})
 const component = connect(
   mapStateToProps,
-  { createCourse }
+  { createCourse, updateCourse, deleteCourse }
 )(CourseWizard)
 export default withStyles(styles)(component)

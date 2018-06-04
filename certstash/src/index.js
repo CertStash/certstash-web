@@ -12,7 +12,9 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 import { blue, orange } from 'material-ui/colors';
-// import green from 'material-ui/colors/green';
+
+
+import routes from './helpers/routes'
 
 import * as reducers from './reducers/index'
 import { saveOrgState } from './helpers/persistState'
@@ -46,7 +48,7 @@ ReactDOM.render(
   <Provider store={store}>
       <MuiThemeProvider theme={theme}>
         <Router>
-          <Route path='/' component={App} /> 
+          <Route path={routes.home} component={App} /> 
         </Router>
       </MuiThemeProvider>
   </Provider>

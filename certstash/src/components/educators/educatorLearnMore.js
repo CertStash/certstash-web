@@ -3,7 +3,7 @@ import Card, { CardActions, CardContent } from 'material-ui/Card'
 import Button from 'material-ui/Button'
 import Typography from 'material-ui/Typography'
 import { withStyles } from 'material-ui/styles'
-import routeStrings from '../../helpers/routeStrings'
+import routes from '../../helpers/routes'
 
 const styles = {
   card: {
@@ -26,10 +26,10 @@ function EducatorLearnMore(props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" color="primary" onClick={() => history.push(routeStrings.educatorSignup)}>
+        <Button size="small" color="primary" onClick={() => history.push(routes.educatorSignup)}>
           Sign Up
         </Button>
-        <Button size="small" color="primary" onClick={() => history.push(routeStrings.educatorLogin)}>
+        <Button size="small" color="primary" onClick={() => history.push(routes.educatorLogin)}>
           Log In
         </Button>
       </CardActions>

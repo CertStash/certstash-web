@@ -6,7 +6,7 @@ import ImageUpload from '../loginSignup/ImageUpload'
 import Login from './loginSignup/login'
 import { withStyles } from 'material-ui/styles';
 import { Route } from 'react-router-dom'
-import routeStrings from '../../helpers/routeStrings'
+import routes from '../../helpers/routes'
 
 const styles = {
   root: {
@@ -20,22 +20,22 @@ function StudentBase(props){
   const { classes, match } = props;
   return  (
     <div className={classes.root}>
-      <Route path={`${match.url}/learnmore`} component={StudentLearnMore}/>
-      <Route path={`${match.url}/login`} render={(props) => {
+      <Route path={routes.studentLearnMore} component={StudentLearnMore}/>
+      <Route path={routes.studentLogin} render={(props) => {
         return (
           <LoginSignup {...props}>
             <Login {...props} />
           </LoginSignup>
         )
       }} />
-      <Route path={`${match.url}/signup`} render={(props) => {
+      <Route path={routes.studentSignup} render={(props) => {
         return (
           <LoginSignup {...props}>
             <StudentSignup {...props}/>
           </LoginSignup>
         )
       }} />
-      <Route path={`${match.url}/photo`} render={(props) => {
+      <Route path={routes.studentPhoto} render={(props) => {
         return (
           <LoginSignup {...props}>
             <ImageUpload type={'user'} {...props}/>

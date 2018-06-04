@@ -2,12 +2,21 @@ import React from 'react'
 import { withStyles } from 'material-ui/styles'
 import { connect } from 'react-redux'
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
+import Toolbar from 'material-ui/Toolbar'
+import Typography from 'material-ui/Typography'
 import User from './user'
 
-const styles = {
-  table: {
-    marginTop: 15
-  },
+const styles = theme => {
+  return {
+      container: {
+        marginTop: 15
+      },
+      header: {
+        padding: '15px 24px 0 24px',
+        backgroundColor: theme.palette.background.default,
+        color: theme.palette.text.primary
+      }
+    }
 }
 
 const CustomTableCell = withStyles(theme => {
@@ -25,19 +34,26 @@ const CustomTableCell = withStyles(theme => {
 const UserTable = props => {
     const { classes, users } = props
     return (
-      <Table className={classes.table}>
-        <TableHead>
-          <TableRow>
-            <CustomTableCell>Name:</CustomTableCell>
-            <CustomTableCell>Email:</CustomTableCell>
-            <CustomTableCell>Phone:</CustomTableCell>
-            <CustomTableCell></CustomTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          { users.map( user => <User key={user._id} user={user} /> ) }
-        </TableBody>
-      </Table>
+      <div className={classes.container}>
+        <div className={classes.header}>
+          <Typography variant="subheading" id="tableTitle">
+            Students Found in Our System:
+          </Typography>
+        </div>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <CustomTableCell>Name:</CustomTableCell>
+              <CustomTableCell>Email:</CustomTableCell>
+              <CustomTableCell>Phone:</CustomTableCell>
+              <CustomTableCell></CustomTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            { users.map( user => <User key={user._id} user={user} /> ) }
+          </TableBody>
+        </Table>
+      </div>
   )
 }
 

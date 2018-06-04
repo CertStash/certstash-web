@@ -1,19 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import AddUser from './addUser'
+import AddUser from './AddUser'
 import UserTable from './userTable'
 import CSVModal from './CSVModal'
 import SuccessModal from './SuccessModal'
 import RejectedUsers from './rejectedUsers'
 import { issueCerts } from '../../../actions/certActions'
-import routeStrings from '../../../helpers/routeStrings'
+import routes from '../../../helpers/routes'
 
-import { withStyles } from 'material-ui/styles'
-import Button from 'material-ui/Button'
-import Typography from 'material-ui/Typography'
 import { CircularProgress } from 'material-ui/Progress';
-import { Paper } from 'material-ui'
+import { Paper, Button, Typography, TextField } from 'material-ui'
+import { withStyles } from 'material-ui/styles'
 
 
 const styles = {
@@ -45,6 +43,9 @@ const styles = {
   issueButton: {
     margin: '15px 0 0 auto',
     display: 'inline'
+  },
+  inputField: {
+    width: '30%'
   }
 }
 
@@ -52,7 +53,8 @@ class IssueCert extends Component {
   state = {
     addingUser: false,
     csvModalOpen: false,
-    successModalOpen: false
+    successModalOpen: false,
+    instructor: ''
   }
   
   componentDidUpdate(prevProps) {
@@ -72,8 +74,9 @@ class IssueCert extends Component {
 
   // Issue Certs
   issueCertsClick = () => {
-    const { users, course, issueCerts } = this.props;
-    issueCerts(users, course)
+    const { users, course, issueCerts } = this.props
+    const { instructor } = this.state
+    issueCerts(users, course, instructor)
   }
 
   // Modal controls
@@ -84,6 +87,11 @@ class IssueCert extends Component {
     this.setState({successModalOpen: false})
   }
 
+  handleInputChange = (type) => {
+    return (e) => {
+      this.setState({[type]: e.target.value})
+    }
+  }
   render(){
     const { classes, loadedUsers, users, course } = this.props
     const { addingUser, csvModalOpen, successModalOpen } = this.state
@@ -92,9 +100,14 @@ class IssueCert extends Component {
       <div className={classes.container}>
         <Paper elevation={4} className={classes.paper}>
           <div className={classes.topBar}>
-            <Typography variant="headline" component="h2" align="left">
-              Course: {course.name}
-            </Typography>
+            <div>
+              <Typography variant="caption" component="span" align="left">
+                Course: 
+              </Typography>
+              <Typography variant="headline" component="span" align="left">
+                {course.name}
+              </Typography>
+            </div>
             <div className={classes.buttonGroup}>
               <Button variant="raised" className={classes.loadButton} color={"primary"} onClick={this.toggleAddUser} >
                 { this.state.addingUser ? `▲ Search` : `▼ Search` }
@@ -104,6 +117,12 @@ class IssueCert extends Component {
               </Button>  
             </div>
           </div>
+          <TextField
+            value={this.state.instructor}
+            label="Instructor:"
+            className={classes.inputField}
+            onChange={this.handleInputChange('instructor')}
+          />
           { addingUser
             ? <AddUser />
             : null }
@@ -116,24 +135,18 @@ class IssueCert extends Component {
             : null }
           <UserTable title={'Confirmed Users'} />
           { this.props.rejectedUsers.length > 0
-            ? <div>
+            ? <div style={{marginTop: 20}}>
                 <Typography variant="subheading" component="p" align="left">
-                  The following students were not found in our system. Please check you records and make sure the information is correct. If it is, we will still issue the certification and invite the student join to CertStash.
+                  Note: The following students were not found in our system. Please check you records and make sure the information is correct. If it is, we will still issue the certification and invite the student join to CertStash.
                 </Typography>
                 <RejectedUsers />
               </div>
             : null
           }
-          <Button variant="raised" className={ classes.issueButton } color={ "secondary" } onClick={this.inviteUsers} disabled={this.props.rejectedUsers.length === 0}>
-            {this.props.issuing
-              ? <CircularProgress className={ classes.progress } size={ 30 } color="inherit"/>
-              : 'Invite and issue certs to all students'
-            }
-          </Button>
           <Button variant="raised" className={classes.issueButton} color={"primary"} onClick={this.issueCertsClick} disabled={users.length === 0 || course._id === undefined }>
             {this.props.issuing
               ? <CircularProgress className={classes.progress} size={30} color="inherit"/>
-              : 'Issue Certs to Found Students Only'
+              : 'Issue Certs to All Students'
             }
           </Button>
         </Paper>
@@ -141,8 +154,8 @@ class IssueCert extends Component {
         <SuccessModal 
           open={successModalOpen}
           closeSuccessModal={this.closeSuccessModal}
-          navigateHome={ () => {this.props.history.push(routeStrings.educatorHome)} }
-          navigateIssue={ () => {this.props.history.push(routeStrings.selectCourse)} }
+          navigateHome={ () => {this.props.history.push(routes.educatorHome)} }
+          navigateIssue={ () => {this.props.history.push(routes.selectCourse)} }
          />
       </div>
     )

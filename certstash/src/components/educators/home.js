@@ -5,7 +5,7 @@ import Button from 'material-ui/Button'
 import Typography from 'material-ui/Typography'
 import { Paper } from 'material-ui'
 import { getCourses } from '../../actions/certActions'
-import routeStrings from '../../helpers/routeStrings'
+import routes from '../../helpers/routes'
 
 const styles = {
   container: {
@@ -29,15 +29,19 @@ const styles = {
 class EducatorHome extends Component {
   createCourseClick = () => {
     const { history, match } = this.props
-    history.push(routeStrings.createCourse)
+    history.push(routes.createCourse)
   }
 
   getCourseClick = () => {
-    this.props.getCourses( () => { this.props.history.push(routeStrings.manageCourses) })
+    this.props.getCourses( () => { this.props.history.push(routes.manageCourses) })
   }
   
   issueCertClick = () => {
-    this.props.getCourses(() => { this.props.history.push(routeStrings.selectCourse) })
+    this.props.getCourses(() => { this.props.history.push(routes.selectCourse) })
+  }
+
+  manageCertsClick = () => {
+    this.props.getCourses(() => { this.props.history.push(routes.manageCerts) })
   }
 
   render(){
@@ -58,12 +62,12 @@ class EducatorHome extends Component {
             Create New Course
           </Button>
           <Button variant="raised" className={classes.loadButton} color={"primary"} onClick={this.getCourseClick}>
-            Manage Courses
+            Manage Course(s)
           </Button>
           <Button variant="raised" className={classes.loadButton} color={"primary"} onClick={this.issueCertClick}>
             Issue New Certification(s)
           </Button>
-          <Button variant="raised" className={classes.loadButton} color={"primary"} onClick={this.createCourseClick}>
+          <Button variant="raised" className={classes.loadButton} color={"primary"} onClick={this.manageCertsClick}>
             Manage Certification(s)
           </Button>
         </Paper>

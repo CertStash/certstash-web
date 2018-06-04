@@ -4,7 +4,8 @@ import Card, { CardActions, CardContent } from 'material-ui/Card';
 import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import { withStyles } from 'material-ui/styles';
-import routeStrings from '../../helpers/routeStrings'
+import routes from '../../helpers/routes'
+import { connect } from 'react-redux';
 
 const styles = {
   root: {
@@ -38,16 +39,16 @@ function Welcome(props){
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small" color="primary" onClick={() => history.push(routeStrings.studentLearnMore)}>
+          <Button size="small" color="primary" onClick={() => history.push(routes.studentLearnMore)}>
             Learn More
           </Button>
-          <Button size="small" color="primary" onClick={() => history.push(routeStrings.studentSignup)}>
+          <Button size="small" color="primary" onClick={() => history.push(routes.studentSignup)}>
             Sign Up
           </Button>
-          <Button size="small" color="primary" onClick={() => history.push(routeStrings.studentLogin)}>
+          <Button size="small" color="primary" onClick={() => history.push(routes.studentLogin)}>
             Log In
           </Button>
-          <Button size="small" color="primary" onClick={() => history.push(routeStrings.educatorLearnmore)}>
+          <Button size="small" color="primary" onClick={() => history.push(routes.educatorLearnMore)}>
             Educators
           </Button>
         </CardActions>

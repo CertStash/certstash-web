@@ -5,10 +5,11 @@ import Button from 'material-ui/Button'
 import Typography from 'material-ui/Typography'
 import { Paper } from 'material-ui'
 import Course from './course'
-import routeStrings from '../../../helpers/routeStrings'
+import routes from '../../../helpers/routes'
+import { clearCourse } from '../../../actions/certActions'
 
 const styles = {
-  container: {
+  root: {
     display: 'flex',
     justifyContent: 'center',
     position: 'absolute',
@@ -29,18 +30,26 @@ const styles = {
 }
 
 class Courses extends Component {
+  
   createCourseClick = () => {
     const { history, match } = this.props
-    history.push(routeStrings.createCourse)
+    history.push(routes.createCourse)
   }
+
   coursesClickHandler = () => {
     const { history, locString } = this.props
     history.push(locString)
   }
+
+  componentDidMount = () => {
+    const { clearCourse } = this.props
+    clearCourse();
+  }
+
   render(){
     const {classes} = this.props
     return (
-      <div className={classes.container}>
+      <div className={classes.root}>
         <Paper elevation={4} className={classes.paper}>
           <Typography variant="headline" component="h2" align="center">
             Select a Course:
@@ -68,6 +77,6 @@ class Courses extends Component {
 const mapStateToProps = state => ({courses: state.org.courses})
 const component = connect(
   mapStateToProps,
-  { }
+  { clearCourse }
 )(Courses)
 export default withStyles(styles)(component)

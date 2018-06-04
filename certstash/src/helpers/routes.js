@@ -12,6 +12,7 @@ export default {
   updateCourse: '/educator/updateCourse',
   selectCourse: '/educator/selectCourse',
   issueCert: '/educator/issueCert',
+  manageCerts: '/educator/manageCerts',
   educatorLogo: '/educator/logo',
   educatorLogin: '/educator/login',
   educatorSignup: '/educator/signup',
