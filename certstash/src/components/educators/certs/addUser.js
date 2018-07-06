@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import TextField from 'material-ui/TextField'
-import Button from 'material-ui/Button'
-import { CircularProgress } from 'material-ui/Progress';
-import { withStyles } from 'material-ui/styles'
+
 import { connect } from 'react-redux'
+
+import { TextField, Button, CircularProgress } from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles'
+
 import { getUsers } from '../../../actions/certActions'
 
 const styles = {

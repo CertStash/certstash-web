@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
+import { Paper, Button, Typography, TextField, CircularProgress } from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles'
+
 import AddUser from './AddUser'
 import UserTable from './userTable'
 import CSVModal from './CSVModal'
@@ -9,13 +12,10 @@ import RejectedUsers from './rejectedUsers'
 import { issueCerts } from '../../../actions/certActions'
 import routes from '../../../helpers/routes'
 
-import { CircularProgress } from 'material-ui/Progress';
-import { Paper, Button, Typography, TextField } from 'material-ui'
-import { withStyles } from 'material-ui/styles'
 
 
 const styles = {
-  container: {
+  root: {
     display: 'flex',
     justifyContent: 'center',
     position: 'absolute',
@@ -51,7 +51,7 @@ const styles = {
 
 class IssueCert extends Component {
   state = {
-    addingUser: false,
+    addingUser: true,
     csvModalOpen: false,
     successModalOpen: false,
     instructor: ''
@@ -97,7 +97,7 @@ class IssueCert extends Component {
     const { addingUser, csvModalOpen, successModalOpen } = this.state
 
     return (
-      <div className={classes.container}>
+      <div className={classes.root}>
         <Paper elevation={4} className={classes.paper}>
           <div className={classes.topBar}>
             <div>

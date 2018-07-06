@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { signup } from '../../../actions/user'
-import { validateEmail, validatePhone } from '../../../helpers/validationHelper'
+import { validateEmail, validatePhone, validateUsername } from '../../../helpers/validationHelper'
 import routes from '../../../helpers/routes'
 
-import { withStyles } from 'material-ui/styles'
-import TextField from 'material-ui/TextField'
-import Button from 'material-ui/Button'
+import { withStyles } from '@material-ui/core/styles'
+import { TextField, Button } from '@material-ui/core'
 
 const styles = {
   root: {
@@ -30,11 +29,8 @@ class SignUp extends Component {
   constructor(props){
     super(props)
     this.state = {
-      firstName: '',
-      lastName: '',
-      password: '',
-      phone: '',
       email: '',
+      password: '',
       confirmPassword: ''
     }
   }
@@ -47,13 +43,14 @@ class SignUp extends Component {
 
   onSubmit = () => {
     const { signup } = this.props
-    const { email, password, firstName, lastName, phone } = this.state
-    signup(email, password, firstName, lastName, phone, this.onSubmitComplete)
+    const { email, password } = this.state
+    signup( email, password, this.onSubmitComplete)
   }
 
   onSubmitComplete = () => {
     const { history } = this.props
-    history.push(routes.studentPhoto)
+    // history.push(routes.studentPhoto)
+    history.push(routes.studentSignupDetail)
   }
   
   emailValidate = () => {
@@ -61,32 +58,18 @@ class SignUp extends Component {
     const { email } = this.state
     validateEmail('user',email)
   }
-
-  phoneValidate = () => {
-    const { validatePhone } = this.props
-    const { phone } = this.state
-    validatePhone('user',phone)
-  }
   
+  usernameValidate = () => {
+    const { validateUsername } = this.props
+    const { username } = this.state
+    validateUsername(username)
+  }
+
   render(){
     const { classes, loginStatus } = this.props
     const passMatch = this.state.password === this.state.confirmPassword
     return (
       <div className={classes.root}>
-        <TextField
-          required
-          value={this.state.firstName}
-          label="First Name"
-          className={classes.block}
-          onChange={this.handleChange('firstName')}
-        />
-        <TextField
-          required
-          value={this.state.lastName}
-          label="Last Name"
-          className={classes.block}
-          onChange={this.handleChange('lastName')}
-        />
         <TextField
           required
           value={this.state.email}
@@ -116,16 +99,6 @@ class SignUp extends Component {
           className={classes.block}
           onChange={this.handleChange('confirmPassword')}
         />
-        <TextField
-          required
-          value={this.state.phone}
-          label="Phone number"
-          className={classes.block}
-          onChange={this.handleChange('phone')}
-          onBlur={ this.phoneValidate }
-          error={loginStatus.phoneAlreadyInUse ? true : false}
-          helperText={loginStatus.phoneAlreadyInUse ? 'Phone Number Already in Use' : ''}
-        />
         <Button variant="raised" disabled={!passMatch || loginStatus.phoneAlreadyInUse || loginStatus.emailAlreadyInUse} color="primary" className={classes.button} onClick={this.onSubmit}>
           Submit
         </Button>
@@ -136,6 +109,6 @@ class SignUp extends Component {
 const matchState = (state) => ({loginStatus: state.loginStatus})
 const SignUpComponent = connect(
   matchState,
-  { validateEmail, validatePhone, signup }
+  { validateEmail, signup }
 )(SignUp)
 export default withStyles(styles)(SignUpComponent)

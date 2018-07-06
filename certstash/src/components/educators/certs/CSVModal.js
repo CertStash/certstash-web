@@ -1,26 +1,24 @@
 // Core React Components
 import React, { Component } from 'react'
 
-// Actions
-import { getUsers } from '../../../actions/certActions'
-// CSV parsers
-import { parseCSV, getEmailsFromCSV } from '../../../helpers/csvHelper'
+import { connect } from 'react-redux'
 
-// Material-UI components and functions
-import Dialog, {
+// @material-ui/core components and functions
+import {
+  Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
-} from 'material-ui/Dialog';
-import Slide from 'material-ui/transitions/Slide';
-import Button from 'material-ui/Button'
-import Typography from 'material-ui/Typography'
-import { CircularProgress } from 'material-ui/Progress';
-import { withStyles } from 'material-ui/styles'
+  Slide, 
+  Button,
+  Typography,
+  CircularProgress
+} from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles'
 
-// connect HOC 
-import { connect } from 'react-redux'
+import { getUsers } from '../../../actions/certActions'
+import { parseCSV, getEmailsFromCSV } from '../../../helpers/csvHelper'
 
 // Styles object
 const styles = {

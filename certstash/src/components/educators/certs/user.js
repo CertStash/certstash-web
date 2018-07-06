@@ -1,11 +1,12 @@
 import React from 'react'
-import { withStyles } from 'material-ui/styles'
-import Typography from 'material-ui/Typography'
-import { TableCell, TableRow } from 'material-ui/Table';
-import Icon from 'material-ui/Icon';
-import Tooltip from 'material-ui/Tooltip';
+
 import { connect } from 'react-redux'
+
+import { withStyles } from '@material-ui/core/styles'
+import { TableCell, TableRow, Typography, Icon, Tooltip } from '@material-ui/core';
+
 import { removeUser } from '../../../actions/certActions'
+
 const styles = {
   container: {
     display: 'flex',

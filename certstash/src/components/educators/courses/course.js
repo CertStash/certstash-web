@@ -1,8 +1,10 @@
 import React from 'react'
-import { withStyles } from 'material-ui/styles'
-import Typography from 'material-ui/Typography'
-import { Paper } from 'material-ui'
+
 import { connect } from 'react-redux'
+
+import { withStyles } from '@material-ui/core/styles'
+import { Paper, Typography } from '@material-ui/core'
+
 import { loadCourse } from '../../../actions/certActions'
 const styles = {
   container: {

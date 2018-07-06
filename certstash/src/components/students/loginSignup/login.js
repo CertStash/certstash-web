@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 
-import { withStyles } from 'material-ui/styles';
-import TextField from 'material-ui/TextField'
-import Button from 'material-ui/Button'
-import {logIn} from '../../../actions/user.js'
+import { withStyles } from '@material-ui/core/styles';
+import { TextField, Button } from '@material-ui/core'
+import { logIn } from '../../../actions/user.js'
+import routes from '../../../helpers/routes'
 
 const styles = {
   root: {
@@ -39,10 +39,15 @@ class LogIn extends Component {
     });
   };
 
+  onSubmitSuccess = () => {
+    const { history } = this.props
+    history.push(routes.studentHome)
+  }
+
   onSubmit = () => {
     const { email, password } = this.state;
     const { logIn } = this.props
-    logIn(email,password);
+    logIn(email, password, this.onSubmitSuccess);
   }
   
   render(){

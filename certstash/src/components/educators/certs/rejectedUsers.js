@@ -1,8 +1,10 @@
 import React from 'react'
-import Paper from 'material-ui/Paper'
-import Chip from 'material-ui/Chip';
-import { withStyles } from 'material-ui'
+
 import { connect } from 'react-redux'
+
+import { Paper, Chip } from '@material-ui/core'
+import { withStyles } from '@material-ui/core'
+
 import { removeRejected } from '../../../actions/certActions'
 
 const styles = {

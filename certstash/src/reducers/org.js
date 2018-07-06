@@ -1,7 +1,7 @@
 import { LOGIN_ORG, LOGOUT } from '../actions/org'
 import { GET_COURSES } from '../actions/certActions'
 import { loadOrgState } from '../helpers/persistState'
-const defaultState = loadOrgState() || {
+const defaultState = {
   orgName: '',
   email: '',
   phone: '',
@@ -9,7 +9,9 @@ const defaultState = loadOrgState() || {
   courses: []
 }
 
-export default function orgReducer(state = defaultState, action){
+const loadedState = loadOrgState() || defaultState
+
+export default function orgReducer(state = loadedState, action){
   switch(action.type){
     case LOGIN_ORG:
       return Object.assign({}, state, action.org)

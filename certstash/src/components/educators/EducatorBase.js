@@ -1,6 +1,6 @@
 import React from 'react'
 import EducatorLearnMore from './educatorLearnMore'
-import LoginSignup from '../loginSignup/loginSignup'
+import LoginSignup from '../loginSignup/LoginSignup'
 import Login from './loginSignup/login'
 import Signup from './loginSignup/signup'
 import ImageUpload from '../loginSignup/ImageUpload'
@@ -11,7 +11,7 @@ import IssueCert from './certs/issueCert'
 import ManageCerts from './certs/ManageCerts/ManageCerts'
 
 import routes from '../../helpers/routes'
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 import { Route } from 'react-router-dom'
 const styles = {
   root: {

@@ -1,9 +1,9 @@
 import React from 'react'
-import { withStyles } from 'material-ui/styles'
 import { connect } from 'react-redux'
-import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
-import Toolbar from 'material-ui/Toolbar'
-import Typography from 'material-ui/Typography'
+
+import { withStyles } from '@material-ui/core/styles'
+import { Toolbar, Typography, Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
+
 import User from './user'
 
 const styles = theme => {

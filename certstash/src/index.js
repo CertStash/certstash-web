@@ -10,14 +10,14 @@ import thunk from 'redux-thunk'
 
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
-import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
-import { blue, orange } from 'material-ui/colors';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { blue, orange } from '@material-ui/core/colors';
 
 
 import routes from './helpers/routes'
 
 import * as reducers from './reducers/index'
-import { saveOrgState } from './helpers/persistState'
+import { saveOrgState, saveUserState } from './helpers/persistState'
 
 const theme = createMuiTheme({
   palette: {
@@ -40,6 +40,9 @@ store.subscribe( () => {
   const state = store.getState()
   if(state.org.orgName !== ''){
     saveOrgState(state.org)
+  }
+  if(state.user.firstName !== ''){
+    saveUserState(state.user)
   }
   return
 })

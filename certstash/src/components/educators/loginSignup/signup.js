@@ -4,9 +4,8 @@ import { signup } from '../../../actions/org'
 import { validateEmail, validatePhone } from '../../../helpers/validationHelper'
 import routes from '../../../helpers/routes'
 
-import { withStyles } from 'material-ui/styles';
-import TextField from 'material-ui/TextField'
-import Button from 'material-ui/Button'
+import { withStyles } from '@material-ui/core/styles';
+import { TextField, Button } from '@material-ui/core'
 
 const styles = {
   root: {

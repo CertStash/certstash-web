@@ -20,8 +20,12 @@ export default {
 
   // Students:
   student: '/student',
+  studentHome: '/student/home',
   studentLogin: '/student/login',
   studentSignup: '/student/signup',
+  studentSignupDetail: '/student/details',
   studentLearnMore: '/student/learnmore',
-  studentPhoto: '/student/photo'
+  studentPhoto: '/student/photo',
+  studentViewCerts: '/student/certs',
+  stash: '/stash/:name'
 }

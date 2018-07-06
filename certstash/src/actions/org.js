@@ -31,9 +31,16 @@ export const logIn = (email, password, navigationCallback ) => {
 }
 
 export const logout = () => {
-  return (dispatch) => {
-    localStorage.removeItem('token');
+  return dispatch => {
+    try {
+      localStorage.removeItem('user');
+      localStorage.removeItem('org');
+      localStorage.removeItem('token');
+    } catch(err){
+      console.log(err)
+    }
     dispatch({type: LOGOUT})
+
   }
 } 
 

@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
-import { Paper } from 'material-ui'
-import Tabs, { Tab } from 'material-ui/Tabs';
-import AppBar from 'material-ui/AppBar'
-import { withStyles } from 'material-ui/styles';
+import { Paper, Tabs, Tab, AppBar } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
   container: {

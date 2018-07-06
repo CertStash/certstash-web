@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 
-import { withStyles } from 'material-ui/styles';
-import TextField from 'material-ui/TextField'
-import Button from 'material-ui/Button'
+import { withStyles } from '@material-ui/core/styles';
+import { TextField, Button } from '@material-ui/core'
 import {logIn} from '../../../actions/org.js'
 import routes from '../../../helpers/routes'
 

@@ -1,9 +1,6 @@
 import React from 'react'
-// import Rescue from '../../assets/rescue.jpg'
-import Card, { CardActions, CardContent } from 'material-ui/Card';
-import Button from 'material-ui/Button';
-import Typography from 'material-ui/Typography';
-import { withStyles } from 'material-ui/styles';
+import { Card, CardActions, CardContent, Button, Typography }  from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles'
 import routes from '../../helpers/routes'
 import { connect } from 'react-redux';
 

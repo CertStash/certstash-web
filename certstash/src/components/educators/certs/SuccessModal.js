@@ -1,16 +1,17 @@
 // Core React Components
 import React, { Component } from 'react'
 
-// Material-UI components and functions
-import Dialog, {
+// @material-ui/core components and functions
+import {
+  Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
-} from 'material-ui/Dialog';
-import Slide from 'material-ui/transitions/Slide';
-import Button from 'material-ui/Button'
-import { withStyles } from 'material-ui/styles'
+  Slide,
+  Button
+} from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles'
 
 const transition = props => {
   return <Slide direction="down" {...props}/>;

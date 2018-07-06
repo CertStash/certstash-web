@@ -1,6 +1,6 @@
 import { LOGOUT } from '../actions/org'
 import { LOGIN_USER } from '../actions/user'
-
+import { loadUserState } from '../helpers/persistState'
 const defaultState = {
   firstName: '',
   lastName: '',
@@ -11,7 +11,9 @@ const defaultState = {
   certifications: []
 }
 
-export default function userReducer(state = defaultState, action){
+const loadedState = loadUserState() || defaultState
+
+export default function userReducer(state = loadedState, action){
   switch(action.type){
     case LOGIN_USER:
       return action.user;

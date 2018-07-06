@@ -1,12 +1,7 @@
 import React, { Component } from 'react'
-import { withStyles } from 'material-ui/styles'
+import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
-import Button from 'material-ui/Button'
-import AppBar from 'material-ui/AppBar'
-import Typography from 'material-ui/Typography'
-import { Paper } from 'material-ui'
-import TextField from 'material-ui/TextField';
-import MenuItem from 'material-ui/Menu/MenuItem';
+import { Button, AppBar, Typography, Paper, TextField, MenuItem } from '@material-ui/core'
 
 import { createCourse, updateCourse, deleteCourse } from '../../../actions/certActions'
 import routes from '../../../helpers/routes'
@@ -98,8 +93,8 @@ const durations = [
   {
     value: 'UNLIMITED',
     label: 'No Expiration',
-    amount: 0,
-    type: 'u'
+    amount: 100,
+    type: 'y'
   },
 ]
 

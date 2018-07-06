@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
-import { withStyles } from 'material-ui/styles'
+import { withStyles } from '@material-ui/core/styles'
 import { connect } from 'react-redux'
-import Button from 'material-ui/Button'
-import AppBar from 'material-ui/AppBar'
-import Tabs, { Tab } from 'material-ui/Tabs';
-import { Paper } from 'material-ui'
+import { Button, AppBar, Tabs, Tab, Paper } from '@material-ui/core'
 import Dropzone from 'react-dropzone'
 import axios from 'axios'
 import NoImage from '../../assets/no_image.png'

@@ -1,5 +1,17 @@
-import _ from 'lodash'
-import { LOAD_COURSE, LOAD_USERS, RESET, FETCHING_USERS, REMOVE_USER, REMOVE_REJECTED, ISSUING_CERTS, CLEAR_COURSE } from '../actions/certActions'
+import { uniqBy, uniq } from 'lodash'
+import { 
+  LOAD_COURSE, 
+  REVOKE_CERT, 
+  REINSTATE_CERT,
+  LOAD_USERS, 
+  RESET, 
+  FETCHING_USERS, 
+  REMOVE_USER, 
+  REMOVE_REJECTED, 
+  ISSUING_CERTS, 
+  CLEAR_COURSE, 
+  GET_CERTS
+} from '../actions/certActions'
 
 const defaultState = {
   course: {},
@@ -8,6 +20,7 @@ const defaultState = {
   fetchingUsers: false,
   issuing: false,
   loadedUsers: false,
+  certs: []
 }
 
 export default ( state = defaultState, action ) => {
@@ -15,17 +28,24 @@ export default ( state = defaultState, action ) => {
     case LOAD_COURSE: 
       return Object.assign({}, state, { course: action.course })
     case LOAD_USERS:
-      const rejectedUsers = action.requestedUsers.reduce( (arr, email) => {
+      // Compare the list of requested users to the list of user object received from the server
+      let rejectedUsers = action.requestedUsers.reduce( (arr, email) => {
+        // Using RegExp in order to search for inconsistencies in casing
+        let emailRegExp = new RegExp(email, 'i')
+        // Using filter, check to see if the requested user has been returned as a user object
         let filteredUsers = action.users.filter( userObj => {
-          return userObj.email === email
+          return userObj.email.match(emailRegExp)
         })
+        // If no user object was found containing the email, add the email to the list of rejectedUsers
         if(filteredUsers.length === 0){
           arr.push(email)
           return arr
         }
         return arr
       }, [...state.rejectedUsers])
-      const newUsersState = _.uniqBy([...state.users,...action.users], '_id')
+      rejectedUsers = uniq(rejectedUsers)
+      // Make sure we only have one of each user in the array. 
+      const newUsersState = uniqBy([...state.users,...action.users], '_id')
       return Object.assign({}, state, { users: newUsersState, rejectedUsers, fetchingUsers: false, loadedUsers: true })
     case FETCHING_USERS:
       return Object.assign({}, state, {fetchingUsers: true})
@@ -41,8 +61,28 @@ export default ( state = defaultState, action ) => {
       return Object.assign({}, state, {rejectedUsers: filteredRejected})
     case ISSUING_CERTS: 
       return Object.assign({}, state, {issuing: true})
+    case REVOKE_CERT:
+      let revokedCerts = state.certs.map( cert => {
+        if(cert._id === action.id){
+          return Object.assign({}, cert, {isRevoked: true})
+        } else {
+          return cert
+        }
+      })
+      return Object.assign({}, state, {certs: revokedCerts})
+    case REINSTATE_CERT:
+      let reinstatedCerts = state.certs.map( cert => {
+        if(cert._id === action.id){
+          return Object.assign({}, cert, {isRevoked: false})
+        } else {
+          return cert
+        }
+      })
+      return Object.assign({}, state, {certs: reinstatedCerts})
     case CLEAR_COURSE:
       return Object.assign({}, state, {course: {}})
+    case GET_CERTS:
+      return Object.assign({}, state, {certs: action.certs})
     case RESET:
       return defaultState
     default:

@@ -12,6 +12,9 @@ export const REMOVE_USER = 'REMOVE_USER'
 export const REMOVE_REJECTED = 'REMOVE_REJECTED'
 export const ISSUING_CERTS = 'ISSUING_CERTS'
 export const CLEAR_COURSE = 'CLEAR_COURSE'
+export const GET_CERTS = 'GET_CERTS'
+export const REVOKE_CERT = 'REVOKE_CERT'
+export const REINSTATE_CERT = 'REINSTATE_CERT'
 
 const getHeaders = () => {
   return {headers: {Authorization: localStorage.getItem('token')}}
@@ -118,5 +121,68 @@ export const issueCerts = (users, course, instructor) => {
       .catch( err => console.log(err))
 
     return { type: 'HSJDH'}
+  }
+}
+
+export const getCerts = ( courseId, startDate, endDate, email, username ) => {
+  const header = getHeaders()
+  return dispatch => {
+    let queryString = '?'
+
+    if(courseId){
+      queryString = `${queryString}course=${courseId}`;
+    }
+
+    if(startDate){
+      let query = `startdate=${startDate}`
+      if(queryString[queryString.length - 1 ] !== '?') query = `&${query}`
+      queryString = `${queryString}${query}`;
+    }
+
+    if(endDate){
+      let query = `enddate=${endDate}`
+      if(queryString[queryString.length - 1 ] !== '?') query = `&${query}`
+      queryString = `${queryString}${query}`;
+    }
+
+    if(email){
+      let query = `email=${email}`
+      if(queryString[queryString.length - 1 ] !== '?') query = `&${query}`
+      queryString = `${queryString}${query}`;
+    }
+
+    if(username){
+      let query = `username=${username}`
+      if(queryString[queryString.length - 1 ] !== '?') query = `&${query}`
+      queryString = `${queryString}${query}`;
+    }
+
+    axios.get(`${URL}/certs${queryString}`, header)
+      .then( response => {
+        dispatch({type: GET_CERTS, certs: response.data})
+      })
+      .catch( err => console.log(err))
+  }
+}
+
+export const revokeCert = (id) => {
+  const headers = getHeaders()
+  return dispatch => {
+    axios.put(`${URL}/certs/revoke`, {id}, headers)
+      .then( res => {
+        dispatch({type: REVOKE_CERT, id})
+      })
+      .catch( err => console.log(err))
+  }
+}
+
+export const reinstateCert = (id) => {
+  const headers = getHeaders()
+  return dispatch => {
+    axios.put(`${URL}/certs/reinstate`, {id}, headers)
+      .then( res => {
+        dispatch({type: REINSTATE_CERT, id})
+      })
+      .catch( err => console.log(err))
   }
 }

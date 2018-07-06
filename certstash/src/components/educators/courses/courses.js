@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { withStyles } from 'material-ui/styles'
+
 import { connect } from 'react-redux'
-import Button from 'material-ui/Button'
-import Typography from 'material-ui/Typography'
-import { Paper } from 'material-ui'
+
+import { withStyles } from '@material-ui/core/styles'
+import { Button, Paper, Typography } from '@material-ui/core'
+
 import Course from './course'
 import routes from '../../../helpers/routes'
 import { clearCourse } from '../../../actions/certActions'
